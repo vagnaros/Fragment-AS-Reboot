@@ -8,5 +8,5 @@
  4. Uncapped Root Town + Instanced Dungeons
 
  ## Known Information
- 1. The lobby server hosts it's own webAPI that acts as a middle man for all interserver or clinet/server interactions.
+ 1. The lobby server hosts it's own webAPI that acts as a middle man for all interserver or client/server interactions.
  2. https://www.dothackers.net/forums/viewtopic.php?t=17240 (some very useful information on the networking side of things)
