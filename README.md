@@ -10,6 +10,8 @@
  ## Known Information
  1. The lobby server hosts it's own webAPI that acts as a middle man for all interserver or client/server interactions.
  2. https://www.dothackers.net/forums/viewtopic.php?t=17240 (some very useful information on the networking side of things)
+ ![Alt text](InfoDocs/Fragment%20Binary%20Message%20Framing%20-%200.png?raw=true "Title")
+ ![Alt text](InfoDocs/Fragment%20Binary%20Message%20Framing%20-%201.png?raw=true "Title")
 
  ## Need Help Still
  1. LobbyServer WebAPI Documentation (uses asp.net is all i know) Might prove useful to disect zackmon's NetslumLobbyServer Repo
