@@ -1,5 +1,5 @@
 # Fragment AS Reboot
- This is a full reboot of the .Hack//Fragment Area Server... With the ame of create a uncapped root town that handles area instances for parties of 3 through a subserver architecture... and impliment admin functions beyond kick/ban as no such functions where originally implemented on the AS.
+ This is a full reboot of the .Hack//Fragment Area Server... With the aim of create a uncapped root town that handles area instances for parties of 3 through a subserver architecture... and impliment admin functions beyond kick/ban as no such functions where originally implemented on the AS.
 
  ## TODO
  1. Make Window to mimic Official AS (doesnt have to be exact).
