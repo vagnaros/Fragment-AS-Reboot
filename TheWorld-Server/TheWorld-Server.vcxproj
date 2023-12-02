@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\ThirdParty Libs\SDL2\include;..\ThirdParty Libs\SDL2_image\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\ThirdParty Libs\SDL2\lib\x86;..\ThirdParty Libs\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\ThirdParty Libs\SDL2\include;..\ThirdParty Libs\SDL2_image\include;..\ThirdParty Libs\SDL2_net\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\ThirdParty Libs\SDL2\lib\x86;..\ThirdParty Libs\SDL2_image\lib\x86;..\ThirdParty Libs\SDL2_net\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -94,7 +94,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
