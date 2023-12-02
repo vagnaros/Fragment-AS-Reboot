@@ -1,5 +1,6 @@
 //Declare Preprocessors
 #include <SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <string>
 
@@ -17,11 +18,13 @@ SDL_Surface* loadSurface(std::string path) //Loads Individual Image
     SDL_Surface* optimizedSurface = NULL;
 
     //Load image at specified path
-    SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL)
     {
-        printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-    } else {
+        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+    }
+    else
+    {
         //Convert surface to screen format
         optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, 0);
         if (optimizedSurface == NULL)
@@ -65,8 +68,18 @@ bool init() {
         }
         else
         {
-            //Get window surface
-            gScreenSurface = SDL_GetWindowSurface(gWindow);
+            //Initialize PNG loading
+            int imgFlags = IMG_INIT_PNG;
+            if (!(IMG_Init(imgFlags) & imgFlags))
+            {
+                printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+                success = false;
+            }
+            else
+            {
+                //Get window surface
+                gScreenSurface = SDL_GetWindowSurface(gWindow);
+            }
         }
     }
 
@@ -77,10 +90,10 @@ bool loadMedia() {
     bool success = true;
 
     //Load splash image
-    gBackground = loadSurface("media/background.bmp");
+    gBackground = loadSurface("media/bgImage.webp");
     if (gBackground == NULL)
     {
-        printf("Unable to load image %s! SDL Error: %s\n", "media/background.bmp", SDL_GetError());
+        printf("Unable to load image %s! SDL Error: %s\n", "media/bgImage.webp", SDL_GetError());
         success = false;
     }
 
