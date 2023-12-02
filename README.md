@@ -13,3 +13,4 @@
 
  ## Need Help Still
  1. LobbyServer WebAPI Documentation (uses asp.net is all i know) Might prove useful to disect zackmon's NetslumLobbyServer Repo
+ (How ASP.Net WebAPIs are made: https://learn.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-8.0&WT.mc_id=dotnet-35129-website)
