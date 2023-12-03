@@ -27,6 +27,12 @@ int main(int argc, char* args[]) {
         {
             //Apply the image
             SDL_BlitScaled(gBackground, NULL, gScreenSurface, &stretchRect);
+
+            //Apply GUI Surfaces to Screen Surface as Rects
+            SDL_BlitScaled(gGUISurfaces[GUI_SURFACE_SERVER], NULL, gScreenSurface, &serverBttn);
+            SDL_BlitScaled(gGUISurfaces[GUI_SURFACE_MAPEDIT], NULL, gScreenSurface, &mapEditBttn);
+            SDL_BlitScaled(gGUISurfaces[GUI_SURFACE_SETTINGS], NULL, gScreenSurface, &settingsBttn);
+            SDL_BlitScaled(gGUISurfaces[GUI_SURFACE_EXIT], NULL, gScreenSurface, &exitBttn);
             
             //Update the surface
             SDL_UpdateWindowSurface(gWindow);

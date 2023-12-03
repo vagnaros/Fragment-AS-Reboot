@@ -145,7 +145,14 @@
     <ClCompile Include="ServerWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ServerWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TheWorld-Server.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\chaosgate.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

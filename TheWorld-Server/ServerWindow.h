@@ -8,11 +8,28 @@
 const int scrWidth = 800;
 const int scrHeight = 600;
 
+//GUI Surfaces Constants
+enum GUISurfaces
+{
+    GUI_SURFACE_SERVER,
+    GUI_SURFACE_MAPEDIT,
+    GUI_SURFACE_SETTINGS,
+    GUI_SURFACE_EXIT,
+    GUI_SURFACE_TOTAL
+};
+
+//Create SDL Rectangle Containers for GUI Elements
+SDL_Rect serverBttn;
+SDL_Rect mapEditBttn;
+SDL_Rect settingsBttn;
+SDL_Rect exitBttn;
+
 //Create SDL Pointers/Containers
 SDL_Window*  gWindow = NULL;		//The window we'll be rendering to
 SDL_Surface* gScreenSurface = NULL; //The surface contained by the window
-SDL_Surface* gBackground = NULL;        	//The image we will load and show on the screen
-SDL_Surface* loadSurface(std::string path) //Loads Individual Images
+SDL_Surface* gBackground = NULL;        	    //The image we will load and show on the screen
+SDL_Surface* gGUISurfaces[GUI_SURFACE_TOTAL];   //The images that correspond to a keypress
+SDL_Surface* loadSurface(std::string path)      //Loads Individual Images
 {
     //The final optimized image
     SDL_Surface* optimizedSurface = NULL;
@@ -79,6 +96,19 @@ bool init() {
             {
                 //Get window surface
                 gScreenSurface = SDL_GetWindowSurface(gWindow);
+
+                //Create Position and Scale GUI Elements Rects
+                serverBttn.x = 0; serverBttn.y = 0;
+                serverBttn.w = 80; serverBttn.h = 80;
+
+                mapEditBttn.x = 0; mapEditBttn.y = 100;
+                mapEditBttn.w = 80; mapEditBttn.h = 80;
+
+                settingsBttn.x = 0; settingsBttn.y = 200;
+                settingsBttn.w = 80; settingsBttn.h = 80;
+
+                exitBttn.x = 0; exitBttn.y = 300;
+                exitBttn.w = 80; exitBttn.h = 80;
             }
         }
     }
@@ -97,17 +127,47 @@ bool loadMedia() {
         success = false;
     }
 
+    gGUISurfaces[GUI_SURFACE_SERVER] = loadSurface("media/GUI/server.png");
+    if (gGUISurfaces[GUI_SURFACE_SERVER] == NULL) {
+        printf("Unable to load image %s! SDL Error: %s\n", "media/GUI/server.png", SDL_GetError());
+        success = false;
+    }
+
+    gGUISurfaces[GUI_SURFACE_MAPEDIT] = loadSurface("media/GUI/map.png");
+    if (gGUISurfaces[GUI_SURFACE_MAPEDIT] == NULL) {
+        printf("Unable to load image %s! SDL Error: %s\n", "media/GUI/map.png", SDL_GetError());
+        success = false;
+    }
+
+    gGUISurfaces[GUI_SURFACE_SETTINGS] = loadSurface("media/GUI/settings.png");
+    if (gGUISurfaces[GUI_SURFACE_SETTINGS] == NULL) {
+        printf("Unable to load image %s! SDL Error: %s\n", "media/GUI/settings.png", SDL_GetError());
+        success = false;
+    }
+
+    gGUISurfaces[GUI_SURFACE_EXIT] = loadSurface("media/GUI/exit.png");
+    if (gGUISurfaces[GUI_SURFACE_EXIT] == NULL) {
+        printf("Unable to load image %s! SDL Error: %s\n", "media/GUI/exit.png", SDL_GetError());
+        success = false;
+    }
+
     return success;
 }
 void close() {
     //Deallocate surface
     SDL_FreeSurface(gBackground);
     gBackground = NULL;
+    SDL_FreeSurface(gGUISurfaces[GUI_SURFACE_SERVER, GUI_SURFACE_MAPEDIT, GUI_SURFACE_SETTINGS, GUI_SURFACE_EXIT]);
+    gGUISurfaces[GUI_SURFACE_SERVER] = NULL;
+    gGUISurfaces[GUI_SURFACE_MAPEDIT] = NULL;
+    gGUISurfaces[GUI_SURFACE_SETTINGS] = NULL;
+    gGUISurfaces[GUI_SURFACE_EXIT]      = NULL;
 
     //Destroy window
     SDL_DestroyWindow(gWindow);
     gWindow = NULL;
 
     //Quit SDL subsystems
+    IMG_Quit();
     SDL_Quit();
 }
