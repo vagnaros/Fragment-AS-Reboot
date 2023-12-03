@@ -1,0 +1,6 @@
+[] Create PartySystem WebUI
+-   [] Apply Party to Clients' UIs
+
+[] Create MeshNet Framework
+-   [] Create Party Server Master (supports multiple parties of 3 members, and UI handling)
+-   [] Create Dungeon Server Node (supports mutliple parties per dungeon; and SpinUp/Down of Dungeon Server Nodes)
