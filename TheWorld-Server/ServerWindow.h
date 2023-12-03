@@ -12,7 +12,7 @@ const int scrHeight = 600;
 SDL_Window*  gWindow = NULL;		//The window we'll be rendering to
 SDL_Surface* gScreenSurface = NULL; //The surface contained by the window
 SDL_Surface* gBackground = NULL;        	//The image we will load and show on the screen
-SDL_Surface* loadSurface(std::string path) //Loads Individual Image
+SDL_Surface* loadSurface(std::string path) //Loads Individual Images
 {
     //The final optimized image
     SDL_Surface* optimizedSurface = NULL;
