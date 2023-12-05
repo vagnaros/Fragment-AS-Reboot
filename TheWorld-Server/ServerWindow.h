@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include "ClassWrapper.h"
+#include "GUIFunctions.h"
 
 //Screen dimension constants
 const int scrWidth = 800;
@@ -49,7 +50,7 @@ LButton::LButton()
 //Button constants
 const int BUTTON_WIDTH = 96;
 const int BUTTON_HEIGHT = 96;
-const int TOTAL_BUTTONS = 7;
+const int TOTAL_BUTTONS = 6;
 
 //Globally used font
 TTF_Font* gFont = NULL;
@@ -67,71 +68,71 @@ const int GUI_ANIMATION_FRAMES = 96;
 SDL_Rect gSpriteClips[GUI_ANIMATION_FRAMES];
 SDL_Rect gStateClips[BUTTON_TOTAL];
 
+//Buttons objects
+LButton gGUIButtons[TOTAL_BUTTONS];
+
 void LButton::setPosition(int x, int y)
 {
     mPosition.x = x;
     mPosition.y = y;
 }
-void LButton::handleEvent(SDL_Event* e)
+void LButton::handleEvent(SDL_Event* e, int gGUIButton)
 {
-    //If mouse event happened
-    if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
+    //Get mouse position
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+
+    //Check if mouse is in button
+    bool inside = true;
+
+    //Mouse Location Logic (inside or outside?)
+    if (x < mPosition.x)
     {
-        //Get mouse position
-        int x, y;
-        SDL_GetMouseState(&x, &y);
-        
-        //Check if mouse is in button
-        bool inside = true;
+        inside = false;
+    }
+    else if (x > mPosition.x + BUTTON_WIDTH)
+    {
+        inside = false;
+    }
+    else if (y < mPosition.y)
+    {
+        inside = false;
+    }
+    else if (y > mPosition.y + BUTTON_HEIGHT)
+    {
+        inside = false;
+    }
 
-        //Mouse Location Logic (inside or outside?)
-        if (x < mPosition.x)
+    //Mouse is outside button
+    if (!inside)
+    {
+       mCurrentState = BUTTON_MOUSE_OUT;
+    }
+    //Mouse is inside button
+    else
+    {
+        //Set mouse over sprite
+        switch (e->type)
         {
-            inside = false;
-        }
-        else if (x > mPosition.x + BUTTON_WIDTH)
-        {
-            inside = false;
-        }
-        else if (y < mPosition.y)
-        {
-            inside = false;
-        }
-        else if (y > mPosition.y + BUTTON_HEIGHT)
-        {
-            inside = false;
-        }
-
-        //Mouse is outside button
-        if (!inside)
-        {
-            mCurrentState = BUTTON_MOUSE_OUT;
-        }
-        //Mouse is inside button
-        else
-        {
-            //Set mouse over sprite
-            switch (e->type)
-            {
-            case SDL_MOUSEMOTION:
-                mCurrentState = BUTTON_MOUSE_OVER_MOTION;
-                break;
-
-            case SDL_MOUSEBUTTONDOWN:
-                mCurrentState = BUTTON_MOUSE_DOWN;
-                break;
-
-            case SDL_MOUSEBUTTONUP:
-                mCurrentState = BUTTON_MOUSE_UP;
-                break;
-            }
+        case SDL_MOUSEMOTION:
+            mCurrentState = BUTTON_MOUSE_OVER_MOTION;
+            break;
+        case SDL_MOUSEBUTTONUP:
+            //-> ON CLICK LOGIC HERE
+            if (gGUIButton == GUI_SS_THEWORLD) { serverBttnClicked(); break; }
+            if(gGUIButton == GUI_SS_MAILER)     { announcerBttnClicked(); break; }
+            if(gGUIButton == GUI_SS_NEWS)       { eventBttnClicked(); break; }
+            if(gGUIButton == GUI_SS_ACCESSORY)  { areasBttnClicked(); break; }
+            if(gGUIButton == GUI_SS_AUDIO)      { adminBttnClicked(); break; }
+            if(gGUIButton == GUI_SS_DATA)       { meshnetBttnClicked(); break; }
+            break;
         }
     }
 }
 void LButton::render()
 {
     //Show current button sprite
-    gGUIButtonStatesTexture.render(mPosition.x, mPosition.y, &gStateClips[mCurrentState]);
+    gGUIButtonStatesTexture.render(mPosition.x, mPosition.y, &gStateClips[mCurrentState], 0.0, NULL, SDL_FLIP_NONE);
 }
 
 bool LTexture::loadFromFile(std::string path)
@@ -389,6 +390,29 @@ bool loadMedia() {
         if (!gTextTextures[GUI_SS_DATA].loadFromRenderedText("MeshNet", textColor)) {
             printf("Failed to render text texture!\n");
             success = false;
+        }
+    }
+
+    //Load sprites
+    if (!gGUIButtonStatesTexture.loadFromFile("media/GUI/ButtonStates.png"))
+    {
+        printf("Failed to load button state texture!\n");
+        success = false;
+    }
+    else
+    {
+        //Set sprites
+        for (int i = 0; i < BUTTON_TOTAL; ++i)
+        {
+            gStateClips[i].x = 96 * i;
+            gStateClips[i].y = 0;
+            gStateClips[i].w = BUTTON_WIDTH;
+            gStateClips[i].h = BUTTON_HEIGHT;
+        }
+
+        //Set buttons positions
+        for (int i = 0; i < TOTAL_BUTTONS; i++) {
+            gGUIButtons[i].setPosition(0, 100 * i);
         }
     }
 

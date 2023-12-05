@@ -64,9 +64,7 @@ enum GUIButtonStates
 {
     BUTTON_MOUSE_OUT = 0,
     BUTTON_MOUSE_OVER_MOTION = 1,
-    BUTTON_MOUSE_DOWN = 2,
-    BUTTON_MOUSE_UP = 3,
-    BUTTON_TOTAL = 4
+    BUTTON_TOTAL = 2
 };
 
 //The mouse button
@@ -80,7 +78,7 @@ public:
     void setPosition(int x, int y);
 
     //Handles mouse event
-    void handleEvent(SDL_Event* e);
+    void handleEvent(SDL_Event* e, int gGUIButton);
 
     //Shows button sprite
     void render();

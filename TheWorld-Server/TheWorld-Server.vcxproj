@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassWrapper.h" />
+    <ClInclude Include="GUIFunctions.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ServerWindow.h" />
   </ItemGroup>
