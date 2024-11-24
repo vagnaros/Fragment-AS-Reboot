@@ -3,7 +3,7 @@
 
  ## DevStack
  1. C++ (SDL2/Image/Net)                _Root Town Server_
- 2. NPM + NodeJS (Mesh-Link, ExpressJS) _Party & Dungeon Handling_
+ 2. NPM + NodeJS (Mesh-Link?, Colyseus, ExpressJS) _Party & Dungeon Handling_
 
  ## TODO
  1. Make Window to mimic Official AS (doesnt have to be exact).
